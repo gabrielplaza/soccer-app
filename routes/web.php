@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/players');
 });
+
+Route::get('/players', [PlayerController::class, 'index'])->name('players.index');;
+Route::post('/players', [PlayerController::class, 'store'])->name('players.store');
+Route::put('/players/confirm/{id}', [PlayerController::class, 'confirm'])->name('players.confirm');
+Route::put('/players/{id}', [PlayerController::class, 'update'])->name('players.update');
+Route::get('/players/create', [PlayerController::class, 'create'])->name('players.create');
+Route::post('/draw-teams', [PlayerController::class, 'drawTeams'])->name('players.drawTeams');
+Route::get('/players/{id}/edit', [PlayerController::class, 'edit'])->name('players.edit');
+Route::delete('/players/{id}', [PlayerController::class, 'destroy'])->name('players.destroy');
+
+
+
