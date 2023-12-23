@@ -23,9 +23,10 @@ Route::post('/players', [PlayerController::class, 'store'])->name('players.store
 Route::put('/players/confirm/{id}', [PlayerController::class, 'confirm'])->name('players.confirm');
 Route::put('/players/{id}', [PlayerController::class, 'update'])->name('players.update');
 Route::get('/players/create', [PlayerController::class, 'create'])->name('players.create');
-Route::post('/draw-teams', [PlayerController::class, 'drawTeams'])->name('players.drawTeams');
+Route::get('/draw-teams', [PlayerController::class, 'drawTeams'])->name('draw-teams');
 Route::get('/players/{id}/edit', [PlayerController::class, 'edit'])->name('players.edit');
 Route::delete('/players/{id}', [PlayerController::class, 'destroy'])->name('players.destroy');
+Route::get('/draw-teams/result', [PlayerController::class, 'showDrawResult'])->name('draw-teams.result');
 
 
 

@@ -21,7 +21,7 @@ class PlayerController extends Controller
     {
         // Obter todos os jogadores do banco de dados
         $players = Player::all();
-      
+
         // Carregar a view 'players.index' com os jogadores
         return view('players.index', compact('players'));
     }
@@ -53,7 +53,7 @@ class PlayerController extends Controller
         ];
 
         // Chamar o método create do repositório para salvar o jogador
-        $this->playerRepository->create($data);
+        $this->playerRepository->createPlayer($data);
 
         // Redirecionar de volta à página de listagem de jogadores
         return redirect()->route('players.index')->with('success', 'Jogador adicionado com sucesso!');
@@ -61,33 +61,28 @@ class PlayerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $player = Player::findOrFail($id);
-      
         // Validar os dados do formulário
         $request->validate([
             'name' => 'required|string|max:255',
-            'level' => 'required|integer|min:1|max:5', 
+            'level' => 'required|integer|min:1|max:5',
         ]);
-       
-        $goalkeeper = $request->has('goalkeeper') ? true : false;
 
-        // Atualizar os dados do jogador com base nos dados do formulário
-        $player->update([
+        // Criar um array com os dados do formulário
+        $data = [
             'name' => $request->input('name'),
             'level' => $request->input('level'),
-            'goalkeeper' => $goalkeeper,
-        ]);
+            'goalkeeper' => $request->has('goalkeeper') ? true : false,
+        ];
 
-        return redirect()->route('players.index')->with('success', 'Jogador atualizado com sucesso!');
+        // Chamar o método updatePlayer do repositório para atualizar o jogador
+        $updatedPlayer = $this->playerRepository->updatePlayer($id, $data);
+
+        return redirect()->route('players.index')->with('success', "Jogador $updatedPlayer->name atualizado com sucesso!");
     }
-
     public function destroy($id)
-{
-    $player = Player::findOrFail($id);
-    $player->delete();
-
-    return redirect()->route('players.index')->with('success', 'Jogador excluído com sucesso!');
-}
+    {
+        return $this->playerRepository->destroyPlayer($id);
+    }
 
     public function confirm($id)
     {
@@ -97,20 +92,75 @@ class PlayerController extends Controller
         return redirect()->back()->with('success', 'Presença confirmada/desconfirmada com sucesso!');
     }
 
+   
     public function drawTeams(Request $request)
     {
-        // Validação - verifique se há jogadores marcados como confirmados
-        $request->validate([
-            'confirmed_players' => 'required|array|min:1',
-        ]);
+        $playersPerTeam = $request->input('playersPerTeam', 5);
+    
+        $confirmedPlayers = Player::where('confirmed', true)->get();
+    
+        // Verifique se há jogadores suficientes para formar times
+        if (count($confirmedPlayers) < $playersPerTeam * 2) {
+            return redirect()->route('players.index')->with('error', 'Número insuficiente de jogadores confirmados para o sorteio.');
+        }
+    
+        // Obtenha os goleiros entre os jogadores confirmados
+        $goalkeepers = $confirmedPlayers->where('goalkeeper', true)->shuffle();
+        
+        // Obtenha os jogadores confirmados que não são goleiros
+        $nonGoalkeepers = $confirmedPlayers->where('goalkeeper', false)->shuffle();
+    
+        // Calcule o número de times que podem ser formados (com pelo menos um goleiro em cada time)
+        $maxTeams = ceil(count($goalkeepers) / 1) + ceil($nonGoalkeepers->count() / ($playersPerTeam - 1));
+    
+        // Divida os jogadores em times
+        $teams = [];
+    
+        for ($i = 0; $i < $maxTeams; $i++) {
+            $currentTeam = [];
+    
+            // Adicione um goleiro ao time (se houver goleiros disponíveis)
+            $goalkeeper = $goalkeepers->pop();
+    
+            if ($goalkeeper !== null) {
+                $currentTeam[] = $goalkeeper;
+            }
+    
+            // Adicione jogadores não goleiros ao time
+            for ($j = 0; $j < ($playersPerTeam - 1); $j++) {
+                // Verifique se há jogadores não goleiros suficientes
+                if ($nonGoalkeepers->count() > 0) {
+                    $currentTeam[] = $nonGoalkeepers->pop();
+                }
+            }
+    
+            $teams[] = $currentTeam;
+        }
+    
+        return view('players.result', ['drawnTeams' => $teams]);
+    }
+    
 
-        // Obtenha os jogadores confirmados pelo usuário
-        $confirmedPlayers = $request->input('confirmed_players');
 
-        // Lógica para sortear times - implemente conforme necessário
-        // ...
+    
 
-        // Redirecionar de volta à página de jogadores com uma mensagem de sucesso
-        return redirect('/players')->with('success', 'Times sorteados com sucesso!');
+
+
+    
+    
+
+ 
+    
+
+    public function showDrawResult()
+    {
+        // Obtenha os times sorteados da variável de sessão
+        $teams = session('drawnTeams');
+
+        // Limpe a variável de sessão após usá-la (opcional)
+        session()->forget('drawnTeams');
+
+        // Carregue a view com os times sorteados
+        return view('players.result', compact('teams'));
     }
 }
