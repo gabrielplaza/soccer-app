@@ -1,71 +1,73 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+TAREFA
+Para o processo seletivo precisamos que você desenvolva uma aplicação usando o framework LARAVEL em sua versão mais recente e um
+banco de dados MySQL. Como a atividade tem por objetivo demonstrar suas habilidades como desenvolvedor Back End, o Front End precisa
+apenas ser funcional.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+DESCRIÇÃO DA APLICAÇÃO
+Um grupo de amigos, desenvolvedores, resolveram jogar futebol toda semana em um campo Society de Poços de Caldas.
+Após montar um grupo no WhatsApp com 25 pessoas, perceberam duas coisas:
+1. Em média 15 a 17 pessoas confirmavam presença no jogo.
+2. Sempre perdiam 10 minutos de jogo para escolher os times com 5 jogadores de linha e 1 goleiro. Logo ficou claro que poderiam
+desenvolver uma aplicação que sorteasse as equipes, com base nas habilidades de cada jogador e assim poupar tempo.
+Essa é sua tarefa.
 
-## About Laravel
+REQUISITOS
+* Armazenar dados dos jogadores: Nome, nível (de 1 a 5, sendo 1 o pior e 5 o melhor) e se o jogador é goleiro(sim/não).
+* Permitir ao usuário marcar quem confirmou presença.
+* Definir o número de jogadores por time.
+* Sortear os jogadores em pelo menos dois times, considerando a quantidade de jogadores definidos e os que foram marcados como
+presentes.
+* Quando houver mais de dois times completos, é permitido ao último time ficar com o número de jogadores menor do que aquele definido
+pelo usuário.
+* Não permitir que um time tenha um número maior de jogadores do que foi determinado pelo usuário antes do sorteio.
+* Não permitir o sorteio, caso o número total de confirmados seja menor que Nj*2, sendo 'Nj' o número de jogadores por time (ex: para
+um sorteio com 5 jogadores por time, o mínimo de confirmados deve ser 10).
+* Não permitir mais de 1 goleiro no mesmo time.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Tela Inicial Players
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![Terminal](https://i.ibb.co/0KSvZ6f/Captura-de-tela-2023-12-23-034142.png)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Tela Adicionar Player
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+![Terminal](https://i.ibb.co/Qm85rQm/Captura-de-tela-2023-12-23-034338.png)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Tela Editar Player
 
-### Premium Partners
+![Terminal](https://i.ibb.co/SdZh2tj/Captura-de-tela-2023-12-23-034550.png)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+Tela Resultado TImes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+![Terminal](https://i.ibb.co/k9s0Csd/Captura-de-tela-2023-12-23-034715.png)
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Requisitos
+PHP 8.3 ou superior
+Composer version 2.6.6 ou superior
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Como rodar a aplicação ▶️
 
-## License
+No terminal, clone o projeto:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# soccer-app
-teste
->>>>>>> origin/main
+git clone https://github.com/gabrielplaza/soccer-app.git
+Entre na pasta do projeto com a IDE:
+
+Instale as dependências:
+
+composer install
+
+
+Execute a aplicação e abra a porta que aparecer na web:
+
+ php artisan serve
+ 
+http://127.0.0.1:8000/
+
+
+Tecnologias 💻
