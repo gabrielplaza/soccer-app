@@ -19,7 +19,7 @@ class PlayerController extends Controller
     }
     public function index()
     {
-        // Obter todos os jogadores do banco de dados
+      
         $players = Player::all();
 
         // Carregar a view 'players.index' com os jogadores
@@ -39,7 +39,7 @@ class PlayerController extends Controller
 
     public function store(Request $request)
     {
-        // Validação dos dados do formulário
+      
         $request->validate([
             'name' => 'required|string|max:255',
             'level' => 'required|integer|min:1|max:5',
@@ -61,7 +61,7 @@ class PlayerController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validar os dados do formulário
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'level' => 'required|integer|min:1|max:5',
@@ -140,27 +140,4 @@ class PlayerController extends Controller
         return view('players.result', ['drawnTeams' => $teams]);
     }
     
-
-
-    
-
-
-
-    
-    
-
- 
-    
-
-    public function showDrawResult()
-    {
-        // Obtenha os times sorteados da variável de sessão
-        $teams = session('drawnTeams');
-
-        // Limpe a variável de sessão após usá-la (opcional)
-        session()->forget('drawnTeams');
-
-        // Carregue a view com os times sorteados
-        return view('players.result', compact('teams'));
-    }
 }

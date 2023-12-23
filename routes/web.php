@@ -26,7 +26,6 @@ Route::get('/players/create', [PlayerController::class, 'create'])->name('player
 Route::get('/draw-teams', [PlayerController::class, 'drawTeams'])->name('draw-teams');
 Route::get('/players/{id}/edit', [PlayerController::class, 'edit'])->name('players.edit');
 Route::delete('/players/{id}', [PlayerController::class, 'destroy'])->name('players.destroy');
-Route::get('/draw-teams/result', [PlayerController::class, 'showDrawResult'])->name('draw-teams.result');
 
 
 
