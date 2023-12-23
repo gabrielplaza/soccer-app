@@ -63,6 +63,10 @@ Instale as dependências:
 composer install
 
 
+Rode o Migrate para criar a tabela Player:
+
+Php Artisan Migrate
+
 Execute a aplicação e abra a porta que aparecer na web:
 
  php artisan serve
